@@ -1,0 +1,11 @@
+{
+    "name": "sassnowski/option",
+    "autoload": {
+        "psr-4": {
+            "Sassnowski\\Option\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0"
+    }
+}
