@@ -1,4 +1,4 @@
 suites:
   library_suite:
-    namespace: Sassnowski\Option\Tests
-    psr4_prefix: Sassnowski\Option\Tests
+    namespace: Sassnowski\Option
+    psr4_prefix: Sassnowski\Option
