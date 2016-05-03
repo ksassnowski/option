@@ -1,11 +1,13 @@
 {
-    "name": "sassnowski/option",
-    "autoload": {
-        "psr-4": {
-            "Sassnowski\\Option\\": "src/"
-        }
-    },
-    "require-dev": {
-        "phpspec/phpspec": "~2.0"
+  "name": "sassnowski/option",
+  "description": "A basic PHP implementation of the Option data type as found in Scala.",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Sassnowski\\Option\\": "src/"
     }
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  }
 }
