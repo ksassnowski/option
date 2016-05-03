@@ -31,6 +31,16 @@ class Option
     }
 
     /**
+     * Named constructor to create an Option with an undefined value (None).
+     * 
+     * @return static
+     */
+    public static function None()
+    {
+        return new static(null);
+    }
+
+    /**
      * Unwraps and returns the value. If the value is null an exception 
      * is thrown.
      * 
@@ -79,7 +89,7 @@ class Option
     {
         if (! $this->isDefined())
         {
-            return $this;
+            return Option::None();
         }
         
         if (! is_callable($func))
@@ -87,8 +97,16 @@ class Option
             throw new InvalidArgumentException("Argument passed to function map() must be a callable.");
         }
         
-        $this->value = $func($this->value);
+        return new Option($func($this->value));
+    }
+
+    public function flatMap($func)
+    {
+        if (! $this->isDefined())
+        {
+            return Option::None();
+        }
         
-        return $this;
+        return $func($this->value);
     }
 }

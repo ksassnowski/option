@@ -7,6 +7,7 @@ use InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use RuntimeException;
+use Sassnowski\Option\Option;
 
 class OptionSpec extends ObjectBehavior
 {
@@ -54,20 +55,24 @@ class OptionSpec extends ObjectBehavior
     
     function it_applies_a_function_to_the_value_if_it_is_defined()
     {
-        $this->beConstructedWith(10);
+        $this->beConstructedWith("abc");
         
         $this->map(function ($value) 
         { 
-            return $value + 10;
-        })->get()->shouldEqual(20);
+            return strlen($value);
+        })->get()->shouldEqual(3);
     }
     
     function it_does_not_call_the_function_if_the_value_is_not_defined()
     {
         $this->beConstructedWith(null);
-        $fn = function () { throw new Exception; };
+        $func = function ($value) 
+        {
+            throw new Exception;
+        };
         
-        $this->shouldNotThrow(Exception::class)->during('map', [$fn]);
+        $this->shouldNotThrow(Exception::class)->during('map', [$func]);
+        $this->map($func)->shouldNotBeDefined();
     }
     
     function it_throws_an_exception_if_no_callable_was_passed()
@@ -75,5 +80,36 @@ class OptionSpec extends ObjectBehavior
         $this->beConstructedWith(10);
         
         $this->shouldThrow(InvalidArgumentException::class)->during('map', [10]);
+    }
+
+    function it_can_be_instantiated_as_a_none()
+    {
+        $this->beConstructedThrough('None');
+        
+        $this->shouldNotBeDefined();
+    }
+    
+    function it_applies_the_next_function_to_a_defined_value()
+    {
+        $this->beConstructedWith(10);
+        
+        $func = function ($i) {
+            if (0 === $i) return Option::None();
+            
+            return new Option(2 / $i);
+        };
+        
+        $this->flatMap($func)->get()->shouldEqual(0.2);
+    }
+
+    function it_aborts_a_chain_of_computations_if_it_encounters_a_none()
+    {
+        $this->beConstructedWith(10);
+        
+        $func1 = function () { return new Option(1); };
+        $func2 = function () { return Option::None(); };
+        $func3 = function () { throw new Exception; };
+
+        $this->flatMap($func1)->flatMap($func2)->flatMap($func3)->shouldNotBeDefined();
     }
 }
