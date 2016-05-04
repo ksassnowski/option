@@ -92,14 +92,19 @@ class Option
             return Option::None();
         }
         
-        if (! is_callable($func))
-        {
-            throw new InvalidArgumentException("Argument passed to function map() must be a callable.");
-        }
-        
+        $this->guardAgainstNonCallable($func, __METHOD__);
+
         return new Option($func($this->value));
     }
 
+    /**
+     * Applies $func to this value if it exists. The difference between
+     * map and flatMap is, that the function that is being passed to flatMap
+     * also returns an option, i.e. can also fail.
+     * 
+     * @param $func The function to apply to this value.
+     * @return Option
+     */
     public function flatMap($func)
     {
         if (! $this->isDefined())
@@ -107,16 +112,41 @@ class Option
             return Option::None();
         }
         
+        $this->guardAgainstNonCallable($func, __METHOD__);
+        
         return $func($this->value);
     }
 
+    /**
+     * If this value is undefined, try the provided alternative function.
+     * 
+     * @param $alternative The alternative function to try if the value is undefined.
+     * @return Option
+     */
     public function orElse($alternative)
     {
         if (! $this->isDefined())
         {
+            $this->guardAgainstNonCallable($alternative, __METHOD__);
+            
             return $alternative();
         }
         
         return $this;
+    }
+
+    /**
+     * Guard against a non callable parameter.
+     * 
+     * @param $func The parameter to check
+     * @param $inMethod The method the parameter was passed to. Is used in the exception message.
+     * @throws InvalidArgumentException If $func is not a callable.
+     */
+    protected function guardAgainstNonCallable($func, $inMethod)
+    {
+        if (! is_callable($func)) 
+        {
+            throw new InvalidArgumentException("Argument passed to function ${inMethod} must be a callable.");
+        }
     }
 }

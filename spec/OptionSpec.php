@@ -149,4 +149,18 @@ class OptionSpec extends ObjectBehavior
 
         $this->orElse($alt1)->orElse($alt1)->orElse($alt1)->shouldNotBeDefined();
     }
+
+    function it_should_throw_an_exception_if_a_non_callable_is_passed_during_flatMap()
+    {
+        $this->beConstructedWith(10);
+        
+        $this->shouldThrow(InvalidArgumentException::class)->during('flatMap', [10]);
+    }
+    
+    function it_should_throw_an_exception_if_a_non_callable_is_passed_during_orElse()
+    {
+        $this->beConstructedWith(null);
+        
+        $this->shouldThrow(InvalidArgumentException::class)->during('orElse', [10]);
+    }
 }
