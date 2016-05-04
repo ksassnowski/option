@@ -94,7 +94,7 @@ class OptionSpec extends ObjectBehavior
         $this->beConstructedWith(10);
         
         $func = function ($i) {
-            if (0 === $i) return Option::None();
+            if (0 === $i) return Option::none();
             
             return new Option(2 / $i);
         };
@@ -107,7 +107,7 @@ class OptionSpec extends ObjectBehavior
         $this->beConstructedWith(10);
         
         $func1 = function () { return new Option(1); };
-        $func2 = function () { return Option::None(); };
+        $func2 = function () { return Option::none(); };
         $func3 = function () { throw new Exception; };
 
         $this->flatMap($func1)->flatMap($func2)->flatMap($func3)->shouldNotBeDefined();
@@ -135,7 +135,7 @@ class OptionSpec extends ObjectBehavior
     {
         $this->beConstructedWith(null);
         
-        $alt1 = function () { return Option::None(); };
+        $alt1 = function () { return Option::none(); };
         $alt2 = function () { return new Option(10); };
         
         $this->orElse($alt1)->orElse($alt2)->orElse($alt1)->get()->shouldEqual(10);
@@ -145,7 +145,7 @@ class OptionSpec extends ObjectBehavior
     {
         $this->beConstructedWith(null);
 
-        $alt1 = function () { return Option::None(); };
+        $alt1 = function () { return Option::none(); };
 
         $this->orElse($alt1)->orElse($alt1)->orElse($alt1)->shouldNotBeDefined();
     }

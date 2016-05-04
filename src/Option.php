@@ -35,7 +35,7 @@ class Option
      * 
      * @return static
      */
-    public static function None()
+    public static function none()
     {
         return new static(null);
     }
@@ -89,7 +89,7 @@ class Option
     {
         if (! $this->isDefined())
         {
-            return Option::None();
+            return Option::none();
         }
         
         $this->guardAgainstNonCallable($func, __METHOD__);
@@ -109,7 +109,7 @@ class Option
     {
         if (! $this->isDefined())
         {
-            return Option::None();
+            return Option::none();
         }
         
         $this->guardAgainstNonCallable($func, __METHOD__);
