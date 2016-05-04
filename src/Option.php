@@ -71,7 +71,7 @@ class Option
      * Attempts to return the unwrapped value. If it is null, the $default
      * gets returned instead.
      * 
-     * @param $default The default value to return if the wrapped value is null.
+     * @param $default mixed The default value to return if the wrapped value is null.
      * @return mixed
      */
     public function getOrElse($default)
@@ -82,7 +82,7 @@ class Option
     /**
      * Applies a function if the value is defined. Returns itself otherwise.
      * 
-     * @param $func The function to apply if the value is defined.
+     * @param $func callable The function to apply if the value is defined.
      * @return $this
      */
     public function map($func)
@@ -102,7 +102,7 @@ class Option
      * map and flatMap is, that the function that is being passed to flatMap
      * also returns an option, i.e. can also fail.
      * 
-     * @param $func The function to apply to this value.
+     * @param $func callable The function to apply to this value.
      * @return Option
      */
     public function flatMap($func)
@@ -120,7 +120,7 @@ class Option
     /**
      * If this value is undefined, try the provided alternative function.
      * 
-     * @param $alternative The alternative function to try if the value is undefined.
+     * @param $alternative callable The alternative function to try if the value is undefined.
      * @return Option
      */
     public function orElse($alternative)
@@ -138,8 +138,8 @@ class Option
     /**
      * Guard against a non callable parameter.
      * 
-     * @param $func The parameter to check
-     * @param $inMethod The method the parameter was passed to. Is used in the exception message.
+     * @param $func mixed The parameter to check
+     * @param $inMethod string The method the parameter was passed to. Is used in the exception message.
      * @throws InvalidArgumentException If $func is not a callable.
      */
     protected function guardAgainstNonCallable($func, $inMethod)
