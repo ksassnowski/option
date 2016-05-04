@@ -2,3 +2,13 @@ suites:
   library_suite:
     namespace: Sassnowski\Option
     psr4_prefix: Sassnowski\Option
+extensions:
+  - PhpSpec\Extension\CodeCoverageExtension
+code_coverage:
+  format:
+    - html
+    - clover
+  output:
+    html: coverage
+    clover: coverage.xml
+
