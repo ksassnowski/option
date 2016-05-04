@@ -147,6 +147,6 @@ class OptionSpec extends ObjectBehavior
 
         $alt1 = function () { return Option::None(); };
 
-        $this->
+        $this->orElse($alt1)->orElse($alt1)->orElse($alt1)->shouldNotBeDefined();
     }
 }
