@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/ksassnowski/option.svg?branch=master)](https://travis-ci.org/ksassnowski/option)
 [![Coverage Status](https://coveralls.io/repos/github/ksassnowski/option/badge.svg?branch=develop)](https://coveralls.io/github/ksassnowski/option?branch=develop)
 [![Code Climate](https://codeclimate.com/github/ksassnowski/option/badges/gpa.svg)](https://codeclimate.com/github/ksassnowski/option)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3f99aec5-edcf-4d02-a5ae-466b83680dd7/mini.png)](https://insight.sensiolabs.com/projects/3f99aec5-edcf-4d02-a5ae-466b83680dd7)
 
 A PHP implementation of the `Option` data type from Scala (or `Maybe` from Haskell if you want).
 
