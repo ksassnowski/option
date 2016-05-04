@@ -112,4 +112,41 @@ class OptionSpec extends ObjectBehavior
 
         $this->flatMap($func1)->flatMap($func2)->flatMap($func3)->shouldNotBeDefined();
     }
+    
+    function it_should_simply_return_the_value_if_it_exists()
+    {
+        $this->beConstructedWith(10);
+        
+        $func = function () { return; };
+        
+        $this->orElse($func)->get()->shouldEqual(10);
+    }
+    
+    function it_should_return_the_alternative_if_it_is_undefined()
+    {
+        $this->beConstructedWith(null);
+        
+        $func = function () { return new Option(20); };
+        
+        $this->orElse($func)->get()->shouldEqual(20);       
+    }
+    
+    function it_should_return_the_first_alternative_that_is_defined()
+    {
+        $this->beConstructedWith(null);
+        
+        $alt1 = function () { return Option::None(); };
+        $alt2 = function () { return new Option(10); };
+        
+        $this->orElse($alt1)->orElse($alt2)->orElse($alt1)->get()->shouldEqual(10);
+    }
+
+    function it_should_return_an_undefined_option_if_none_of_the_alternatives_returns_a_defined_value()
+    {
+        $this->beConstructedWith(null);
+
+        $alt1 = function () { return Option::None(); };
+
+        $this->
+    }
 }

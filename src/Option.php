@@ -109,4 +109,14 @@ class Option
         
         return $func($this->value);
     }
+
+    public function orElse($alternative)
+    {
+        if (! $this->isDefined())
+        {
+            return $alternative();
+        }
+        
+        return $this;
+    }
 }
