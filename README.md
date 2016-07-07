@@ -7,6 +7,8 @@
 
 A PHP implementation of the `Option` data type from Scala (or `Maybe` from Haskell if you want).
 
+**DISCLAIMER: This package is not intented to be used in production. Its intend was to serve as a coding exercise to myself about how I would implement and Option Type in PHP. If you want to use this in production I'd recommend you use [https://github.com/schmittjoh/php-option](https://github.com/schmittjoh/php-option) instead.**
+
 ## Installation
 
 Install the package through composer:
